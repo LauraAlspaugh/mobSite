@@ -46,6 +46,21 @@ CREATE TABLE
         FOREIGN KEY (tierId) REFERENCES tiers (id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 
+CREATE TABLE
+    IF NOT EXISTS posts(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+        title CHAR(255) NOT NULL,
+        body VARCHAR(1000) NOT NULL,
+        creatorId VARCHAR(255) NOT NULL,
+        projectId INT NOT NULL,
+        tierId INT NOT NULL,
+        FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE,
+        FOREIGN KEY (projectId) REFERENCES projects(id) ON DELETE CASCADE,
+        FOREIGN KEY (tierId) REFERENCES tiers (id) ON DELETE CASCADE
+    ) default charset utf8 COMMENT '';
+
 SELECT * FROM accounts
 
 SELECT * FROM projects

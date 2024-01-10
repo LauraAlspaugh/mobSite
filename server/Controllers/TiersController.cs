@@ -1,0 +1,14 @@
+namespace mobSite.Controllers;
+[ApiController]
+[Route("api/[controller]")]
+public class TiersController : ControllerBase
+{
+    private readonly TiersService _tiersService;
+    private readonly Auth0Provider _auth0Provider;
+
+    public TiersController(TiersService tiersService, Auth0Provider auth0Provider)
+    {
+        _tiersService = tiersService;
+        _auth0Provider = auth0Provider;
+    }
+}
