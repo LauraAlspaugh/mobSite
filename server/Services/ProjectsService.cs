@@ -1,3 +1,5 @@
+
+
 namespace mobSite.Services;
 public class ProjectsService
 {
@@ -6,5 +8,17 @@ public class ProjectsService
     public ProjectsService(ProjectsRepository projectsRepository)
     {
         _projectsRepository = projectsRepository;
+    }
+
+    internal Project CreateProject(Project projectData)
+    {
+        Project project = _projectsRepository.CreateProject(projectData);
+        return project;
+    }
+
+    internal List<Project> GetProjects()
+    {
+        List<Project> projects = _projectsRepository.GetProjects();
+        return projects;
     }
 }
