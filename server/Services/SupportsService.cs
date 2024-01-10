@@ -11,6 +11,8 @@ public class SupportsService
 
     internal List<Support> GetMySupports(string userId)
     {
-        throw new NotImplementedException();
+        List<Support> supports = _supportsRepository.GetMySupports(userId);
+        supports = supports.FindAll(support => support.CreatorId == userId);
+        return supports;
     }
 }
