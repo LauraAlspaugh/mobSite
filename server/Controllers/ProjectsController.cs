@@ -7,13 +7,15 @@ public class ProjectsController : ControllerBase
     private readonly Auth0Provider _auth0Provider;
     private readonly TiersService _tiersService;
     private readonly PostsService _postsService;
+    private readonly SupportsService _supportsService;
 
-    public ProjectsController(ProjectsService projectsService, Auth0Provider auth0Provider, TiersService tiersService, PostsService postsService)
+    public ProjectsController(ProjectsService projectsService, Auth0Provider auth0Provider, TiersService tiersService, PostsService postsService, SupportsService supportsService)
     {
         _projectsService = projectsService;
         _auth0Provider = auth0Provider;
         _tiersService = tiersService;
         _postsService = postsService;
+        _supportsService = supportsService;
     }
     [Authorize]
     [HttpPost]
@@ -115,6 +117,20 @@ public class ProjectsController : ControllerBase
         {
             List<Post> posts = _postsService.GetPostsByProjectId(projectId);
             return Ok(posts);
+        }
+        catch (Exception error)
+        {
+
+            return BadRequest(error.Message);
+        }
+    }
+    [HttpGet("{projectId}/supports")]
+    public ActionResult<List<Support>> GetSupportsByProjectId(int projectId)
+    {
+        try
+        {
+            List<Support> supports = _supportsService.GetSupportsByProjectId(projectId);
+            return Ok(supports);
         }
         catch (Exception error)
         {
