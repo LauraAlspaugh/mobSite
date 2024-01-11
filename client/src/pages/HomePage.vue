@@ -12,6 +12,23 @@
       </div>
     </section>
     <section class="row justify-content-evenly mt-5">
+      <div class="col-9">
+        <div>
+          <p class="text-white">What inspires you? </p>
+          <form class="d-flex" @submit.prevent="getRecipesWithSearchQuery(editable)">
+
+            <!-- <label for="recipeTitle" class="form-label"></label> -->
+            <input v-model="editable" type="text" class="form-control" id="recipeTitle">
+            <button class="search-box" type="submit">
+              <p class="d-flex m-2">Search <i class="mdi mdi-magnify  "></i></p>
+            </button>
+
+
+          </form>
+        </div>
+      </div>
+    </section>
+    <section class="row justify-content-evenly mt-5">
       <div class="col-8" v-for="project in projects" :key="project.id">
         <ProjectCard :projectProp="project" />
       </div>
@@ -63,5 +80,11 @@ export default {
 .project-place {
   background-color: gray;
   border-radius: 7px;
+}
+
+.search-box {
+  border-radius: 5px;
+  background-color: #1DA1F2;
+  color: white;
 }
 </style>
