@@ -11,4 +11,21 @@ public class TiersController : ControllerBase
         _tiersService = tiersService;
         _auth0Provider = auth0Provider;
     }
+    [Authorize]
+    [HttpPost]
+    public async Task<ActionResult<Tier>> CreateTier([FromBody] Tier tierData)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            tierData.CreatorId = userInfo.Id;
+            Tier tier = _tiersService.CreateTier(tierData);
+            return Ok(tier);
+        }
+        catch (Exception error)
+        {
+
+            return BadRequest(error.Message); ;
+        }
+    }
 }
