@@ -6,12 +6,14 @@ public class ProjectsController : ControllerBase
     private readonly ProjectsService _projectsService;
     private readonly Auth0Provider _auth0Provider;
     private readonly TiersService _tiersService;
+    private readonly PostsService _postsService;
 
-    public ProjectsController(ProjectsService projectsService, Auth0Provider auth0Provider, TiersService tiersService)
+    public ProjectsController(ProjectsService projectsService, Auth0Provider auth0Provider, TiersService tiersService, PostsService postsService)
     {
         _projectsService = projectsService;
         _auth0Provider = auth0Provider;
         _tiersService = tiersService;
+        _postsService = postsService;
     }
     [Authorize]
     [HttpPost]
@@ -106,6 +108,19 @@ public class ProjectsController : ControllerBase
             return BadRequest(error.Message);
         }
     }
+    [HttpGet("{projectId}/posts")]
+    public ActionResult<List<Post>> GetPostsByProjectId(int projectId)
+    {
+        try
+        {
+            List<Post> posts = _postsService.GetPostsByProjectId(projectId);
+            return Ok(posts);
+        }
+        catch (Exception error)
+        {
 
+            return BadRequest(error.Message);
+        }
+    }
 
 }
