@@ -21,7 +21,7 @@ public class ProjectsService
 
     internal string DestroyProject(int projectId, string userId)
     {
-        Project project = GetProjectById(projectId, userId);
+        Project project = GetProjectById(projectId);
         if (project.CreatorId != userId)
         {
             throw new Exception("don't even try it!");
@@ -33,7 +33,7 @@ public class ProjectsService
 
     internal Project EditProject(int projectId, string id, Project projectData)
     {
-        Project project = GetProjectById(projectId, id);
+        Project project = GetProjectById(projectId);
         if (project.CreatorId != id)
         {
             throw new Exception("not yours to edit!");
@@ -46,7 +46,7 @@ public class ProjectsService
         return project;
     }
 
-    internal Project GetProjectById(int projectId, string id)
+    internal Project GetProjectById(int projectId)
     {
         Project project = _projectsRepository.GetProjectById(projectId);
         if (project == null)

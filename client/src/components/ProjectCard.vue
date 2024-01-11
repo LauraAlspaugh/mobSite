@@ -1,17 +1,17 @@
 <template>
     <div class="project-card d-flex">
-        <router-link :to="{ name: 'Project', params: { projectId: projectProp.id } }">
-            <div class="col-6">
+        <div class="col-6">
+            <router-link :to="{ name: 'Project', params: { projectId: projectProp.id } }">
                 <img class="img-fluid" :src="projectProp.img" alt="project image">
+            </router-link>
 
-            </div>
-            <div class="col-6">
-                <p class="m-2 fs-4 project-name">{{ projectProp.name }}</p>
-                <p class="m-2">{{ projectProp.description }}</p>
+        </div>
+        <div class="col-6">
+            <p class="m-2 fs-4 project-name">{{ projectProp.name }}</p>
+            <p class="m-2">{{ projectProp.description }}</p>
 
-            </div>
+        </div>
 
-        </router-link>
     </div>
 </template>
 

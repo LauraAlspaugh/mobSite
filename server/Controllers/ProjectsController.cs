@@ -49,12 +49,12 @@ public class ProjectsController : ControllerBase
         }
     }
     [HttpGet("{projectId}")]
-    public async Task<ActionResult<Project>> GetProjectById(int projectId)
+    public ActionResult<Project> GetProjectById(int projectId)
     {
         try
         {
-            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-            Project project = _projectsService.GetProjectById(projectId, userInfo.Id);
+
+            Project project = _projectsService.GetProjectById(projectId);
             return Ok(project);
         }
         catch (Exception error)
