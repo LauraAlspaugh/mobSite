@@ -1,35 +1,67 @@
 <template>
-  <p>Welcome to the Mob Site! </p>
+  <div class="container-fluid">
+    <section class="row justify-content-evenly">
+      <div class="col-10 quote-title">
+        <p class="fs-4 p-2 quote-content text-center mt-4">“It is literally true that you can succeed best and quickest by
+          helping others
+          to succeed.”
+        </p>
+        <p class="text-center">Mob supply is all about finding and helping those who inspire, create, build and entertain.
+        </p>
+        <p class="text-end p-2">-quote by Napoleon Hill</p>
+      </div>
+    </section>
+    <section class="row justify-content-evenly mt-5">
+      <div class="col-8" v-for="project in projects" :key="project.id">
+        <ProjectCard :projectProp="project" />
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
+import { computed, onMounted } from 'vue';
+import { AppState } from '../AppState.js';
+import { logger } from '../utils/Logger.js';
+import Pop from '../utils/Pop.js';
+import { projectsService } from '../services/ProjectsService.js';
+import ProjectCard from '../components/ProjectCard.vue';
+
 export default {
   setup() {
-    return {
-
+    onMounted(() => {
+      getProjects();
+    });
+    async function getProjects() {
+      try {
+        await projectsService.getProjects();
+      }
+      catch (error) {
+        logger.error(error);
+        Pop.error(error);
+      }
     }
-  }
+    return {
+      projects: computed(() => AppState.projects)
+    };
+  },
+  components: { ProjectCard }
 }
 </script>
 
 <style scoped lang="scss">
-.home {
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
+.quote-title {
+  background-color: #E9C451;
+  border-radius: 7px;
+}
 
-  .home-card {
-    width: clamp(500px, 50vw, 100%);
+.quote-content {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: bold;
+}
 
-    >img {
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
-  }
+.project-place {
+  background-color: gray;
+  border-radius: 7px;
 }
 </style>

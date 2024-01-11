@@ -14,6 +14,7 @@ CREATE TABLE
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         name CHAR(255) NOT NULL,
+        img VARCHAR(1000) NOT NULL,
         description VARCHAR(1000) NOT NULL,
         category CHAR(255) NOT NULL,
         creatorId VARCHAR(255) NOT NULL,
@@ -74,3 +75,5 @@ DROP TABLE projects
 DROP TABLE supports
 
 DROP TABLE tiers
+
+DROP TABLE posts

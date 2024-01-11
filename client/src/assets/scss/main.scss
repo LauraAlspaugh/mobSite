@@ -10,7 +10,12 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: var(--bs-page);
+  // background-image: url("https://plus.unsplash.com/premium_photo-1681449856722-7978f49cb66e?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8");
+  background-image: url("assets/img/HomePage.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  // background-color: var(--bs-page);
 }
 
 main {

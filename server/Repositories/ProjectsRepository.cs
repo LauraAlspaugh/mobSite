@@ -17,8 +17,8 @@ public class ProjectsRepository
     {
         string sql = @"
     INSERT INTO 
-    projects(name, description, category, creatorId)
-    VALUES(@Name, @Description, @Category, @CreatorId);
+    projects(name, img, description, category, creatorId)
+    VALUES(@Name, @Img, @Description, @Category, @CreatorId);
     SELECT 
     pro.*,
     acc.*

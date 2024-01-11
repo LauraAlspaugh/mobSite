@@ -5,8 +5,8 @@
   <main>
     <router-view />
   </main>
-   <footer class="bg-dark text-light">
-    Made with 💖 by CodeWorks
+  <footer class="bg-light text-dark">
+    <p class="m-5 fs-5"><i class="mdi mdi-copyright"></i> 2023 by Laura Alspaugh.</p>
   </footer>
 </template>
 
@@ -27,8 +27,12 @@ export default {
 <style lang="scss">
 @import "./assets/scss/main.scss";
 
-:root{
+:root {
   --main-height: calc(100vh - 32px - 64px);
+}
+
+body {
+  background-image: url("https://www.figma.com/file/D6GwKeWX8ENfrS8eqvHRUu/Mobs?type=design&node-id=108-3&mode=design&t=SXst09xG8LAhbC0t-4");
 }
 
 
