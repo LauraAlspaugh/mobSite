@@ -42,4 +42,52 @@ public class ProjectsController : ControllerBase
             return BadRequest(error.Message);
         }
     }
+    [HttpGet("{projectId}")]
+    public async Task<ActionResult<Project>> GetProjectById(int projectId)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            Project project = _projectsService.GetProjectById(projectId, userInfo.Id);
+            return Ok(project);
+        }
+        catch (Exception error)
+        {
+
+            return BadRequest(error.Message);
+        }
+    }
+    [Authorize]
+    [HttpPut("{projectId}")]
+    public async Task<ActionResult<Project>> EditProject(int projectId, [FromBody] Project projectData)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            Project project = _projectsService.EditProject(projectId, userInfo.Id, projectData);
+            return Ok(project);
+        }
+        catch (Exception error)
+        {
+
+            return BadRequest(error.Message);
+        }
+    }
+    [Authorize]
+    [HttpDelete("{projectId}")]
+    public async Task<ActionResult<string>> DestroyProject(int projectId)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            string userId = userInfo.Id;
+            string message = _projectsService.DestroyProject(projectId, userId);
+            return Ok(message);
+        }
+        catch (Exception error)
+        {
+
+            return BadRequest(error.Message);
+        }
+    }
 }
