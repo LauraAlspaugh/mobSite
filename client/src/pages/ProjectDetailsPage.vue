@@ -1,8 +1,11 @@
 <template>
     <div class="container-fluid">
-        <section v-if="project" class="row justify-content-start">
-            <div class="col-3">
-                <img :src="project.img" alt="project image">
+        <section v-if="project" class="row  p-5">
+            <div class="col-2  m-1">
+                <img class="img-fluid project-image" :src="project.img" alt="project image">
+            </div>
+            <div class="col-2  d-flex align-items-center">
+                <p>{{ project.name }}</p>
             </div>
         </section>
     </div>
@@ -40,4 +43,11 @@ export default {
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.project-image {
+    border-radius: 7px;
+    height: 130px;
+    object-fit: cover;
+    position: center;
+}
+</style>
