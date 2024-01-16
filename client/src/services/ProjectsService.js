@@ -1,4 +1,5 @@
 import { AppState } from "../AppState.js"
+import { Post } from "../models/Post.js"
 import { Project } from "../models/Project.js"
 import { Tier } from "../models/Tier.js"
 import { logger } from "../utils/Logger.js"
@@ -21,6 +22,11 @@ async getProjectById(projectId){
         const res = await api.get(`api/projects/${projectId}/tiers`)
         logger.log('getting tiers by project id', res.data)
         AppState.tiers = res.data.map(pojo => new Tier(pojo))
+    }
+    async getPostsByProjectId(projectId){
+        const res = await api.get(`api/projects/${projectId}/posts`)
+        logger.log('getting posts by project id', res.data)
+        AppState.posts = res.data.map(pojo => new Post(pojo))
     }
 }
 export const projectsService = new ProjectsService()

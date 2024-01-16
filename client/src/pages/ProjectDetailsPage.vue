@@ -32,7 +32,7 @@
 
         </section>
         <section class="row justify-content-evenly">
-            <div class="col-7 p-4 mt-3 post-form">
+            <div class="col-7 p-4 mt-3 mb-3 post-form">
                 <p class="create-title">Create a post for your supporters.</p>
                 <form @submit.prevent="createPost()">
                     <p class="fs-5"></p>
@@ -42,8 +42,8 @@
                             placeholder="Say something..."></textarea>
                     </div>
                     <div class="mb-1">
-                        <label for="imageUrl" class="form-label"></label>
-                        <input v-model="editable.title" type="url" required class="form-control" id="imgUrl"
+                        <label for="title" class="form-label"></label>
+                        <input v-model="editable.title" type="text" required class="form-control" id="title"
                             placeholder="Title...">
                     </div>
 
@@ -56,6 +56,13 @@
                 </form>
             </div>
         </section>
+        <section class="row justify-content-evenly">
+            <div v-for="post in posts" :key="post.id" class="col-7 post-form p-0">
+                <img class="img-fluid post-image" :src="post.img" alt="post image">
+                <p class="fs-5 text-start p-3 mb-0">{{ post.title }}</p>
+                <p class="text-start p-3">{{ post.shortBody }}...</p>
+            </div>
+        </section>
     </div>
 </template>
 
@@ -65,6 +72,7 @@ import { useRoute } from 'vue-router';
 import { AppState } from '../AppState';
 import { computed, reactive, onMounted, ref } from 'vue';
 import { projectsService } from '../services/ProjectsService.js';
+import { postsService } from '../services/PostsService.js';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 export default {
@@ -72,6 +80,7 @@ export default {
         onMounted(() => {
             getProjectById()
             getTiersByProjectId()
+            getPostsByProjectId()
         })
         const route = useRoute();
         const editable = ref({})
@@ -83,6 +92,16 @@ export default {
             catch (error) {
                 logger.error(error);
                 Pop.error(error);
+            }
+        }
+        async function getPostsByProjectId() {
+            try {
+                const projectId = route.params.projectId
+                await projectsService.getPostsByProjectId(projectId)
+            } catch (error) {
+                logger.error(error)
+                Pop.error(error)
+
             }
         }
         async function getTiersByProjectId() {
@@ -99,7 +118,20 @@ export default {
             editable,
             project: computed(() => AppState.activeProject),
             tiers: computed(() => AppState.tiers),
-            posts: computed(() => AppState.posts)
+            posts: computed(() => AppState.posts),
+            description: computed(() => AppState.posts.shortDescription),
+            // shortBody: computed(() => AppState.posts.shortBody),
+            async createPost() {
+                try {
+                    const postData = editable.value
+                    const post = await postsService.createPost(postData)
+                    Pop.success('Post Created!')
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error)
+
+                }
+            }
         }
     }
 };
@@ -156,5 +188,13 @@ export default {
 
 .create-title {
     color: #1DA1F2;
+}
+
+.post-image {
+    width: 100%;
+    height: 300px;
+    position: center;
+    object-fit: cover;
+    border-radius: 7px;
 }
 </style>

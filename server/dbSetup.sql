@@ -54,6 +54,7 @@ CREATE TABLE
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         title CHAR(255) NOT NULL,
         body VARCHAR(1000) NOT NULL,
+        img VARCHAR(1000) NOT NULL,
         creatorId VARCHAR(255) NOT NULL,
         projectId INT NOT NULL,
         tierId INT NOT NULL,
