@@ -59,7 +59,10 @@
         <section class="row justify-content-evenly">
             <div v-for="post in posts" :key="post.id" class="col-7 post-form p-0">
                 <img class="img-fluid post-image" :src="post.img" alt="post image">
-                <p class="fs-5 text-start p-3 mb-0">{{ post.title }}</p>
+                <div class="d-flex">
+                    <p class="fs-5 text-start p-3 mb-0">{{ post.title }}</p>
+                    <i role="button" @click="destroyPost(post.id)" class="mdi mdi-delete-forever destroy-post fs-4 p-3"></i>
+                </div>
                 <p class="text-start p-3">{{ post.shortBody }}...</p>
             </div>
         </section>
@@ -127,6 +130,19 @@ export default {
                     postData.projectId = AppState.activeProject.id
                     const post = await postsService.createPost(postData)
                     Pop.success('Post Created!')
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error)
+
+                }
+            },
+            async destroyPost(postId) {
+                try {
+                    if (await Pop.confirm('Are you sure you want to destroy this Post? ')) {
+
+                        logger.log('deleting post!', postId);
+                        await postsService.destroyPost(postId);
+                    }
                 } catch (error) {
                     logger.error(error)
                     Pop.error(error)

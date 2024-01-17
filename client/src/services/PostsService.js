@@ -11,5 +11,13 @@ class PostsService{
         AppState.posts.push(newPost)
         return newPost
     }
+    async destroyPost(postId) {
+        logger.log('deleting post with following id', postId)
+        const res = await api.delete(`api/posts/${postId}`)
+        logger.log('destroying post', res.data)
+        const postIndex = AppState.posts.findIndex(post => post.id == postId)
+        if (postIndex == -1) { throw new Error('No post found with this id') }
+        AppState.posts.splice(postIndex, 1)
+    }
 }
 export const postsService = new PostsService()
