@@ -18,6 +18,7 @@ public class PostsRepository
     INSERT INTO 
     posts(title, body, img, projectId, tierId, creatorId)
     VALUES(@Title, @Body, @Img, @ProjectId, @TierId, @CreatorId);
+    
     SELECT 
     pos.*,
     acc.*

@@ -124,6 +124,7 @@ export default {
             async createPost() {
                 try {
                     const postData = editable.value
+                    postData.projectId = AppState.activeProject.id
                     const post = await postsService.createPost(postData)
                     Pop.success('Post Created!')
                 } catch (error) {
